@@ -1,0 +1,32 @@
+
+name: Build-And-Deploy
+
+on:
+  push:
+    branches: [ master ]
+  release:
+    types:
+      - prereleased
+      - released
+      - edited
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    - name: set git config
+      run: |
+        echo ${{ toJson(github) }}
+        echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF##*/})
+  setup2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    - name: set git config
+      run: |  
+        echo $RELEASE_TAG
+        echo helllo
+        
