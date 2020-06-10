@@ -15,12 +15,12 @@ jobs:
         echo ${{ github.event.release.prerelease }}
         
     - name: Cluster env for production
-      if: "!github.event.release.prerelease"
+      if: (!github.event.release.prerelease && github.event_name == 'released')
       run: |
         echo ::set-env name=CLUSTER_ENV::prod
         echo prod
         
     - name: Cluster env for staging/dev
-      if: "github.event.release.prerelease"
+      if: (github.event.release.prerelease && github.event_name == 'released')
       run: |
         echo dev
