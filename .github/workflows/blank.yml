@@ -7,20 +7,18 @@ on:
   release:
 
 jobs:
-  setup:
+  setup0:
     runs-on: ubuntu-latest
+    if: ${{ github.event.release.prerelease }}
     steps:
     - name: debug
       run: |
         echo ${{ github.event.release.prerelease }}
         
-    - name: Cluster env for production
-      if: (!github.event.release.prerelease && github.event_name == 'released')
+  setup1:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.release.prerelease }}
+    steps:
+    - name: debug
       run: |
-        echo ::set-env name=CLUSTER_ENV::prod
-        echo prod
-        
-    - name: Cluster env for staging/dev
-      if: (github.event.release.prerelease && github.event_name == 'released')
-      run: |
-        echo dev
+        echo ${{ github.event.release.prerelease }}
