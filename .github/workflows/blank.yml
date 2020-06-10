@@ -15,9 +15,10 @@ jobs:
         echo ${{ github.event_name }}
         echo ${{ github.event.release.prerelease }}
         echo ${{ github.event.release.prerelease == false }}
-        echo ${{ !github.event.release.prerelease && github.event_name == 'released' }}
-        echo ${{ github.event.release.prerelease == false && github.event_name == 'released' }}
-        echo ${{ github.event.release.prerelease == false && github.event_name == 'released' }}
+        echo ${{ !github.event.release.prerelease }}
+        echo ${{ !github.event.release.prerelease && github.event_name == 'release' }}
+        echo ${{ github.event.release.prerelease == false && github.event_name == 'release' }}
+        echo ${{ github.event.release.prerelease == false && github.event_name == 'release' }}
   setup0:
     runs-on: ubuntu-latest
     if: ${{ github.event.release.prerelease }}
