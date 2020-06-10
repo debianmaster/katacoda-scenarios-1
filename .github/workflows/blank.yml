@@ -12,19 +12,17 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
-    - name: set git config
+    - name: debug
       run: |
-        echo ${{ toJson(github) }}
-        echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF##*/})
-  setup2:
-    runs-on: ubuntu-latest
-    if: "!github.event.release.prerelease"
-    steps:
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
-    - name: set git config
-      run: |  
-        echo "this is prod"
+        echo ${{ github.event.release.prerelease }}
         
+    - name: Cluster env for production
+      if: "!github.event.release.prerelease"
+      run: |
+        echo ::set-env name=CLUSTER_ENV::prod
+        echo prod
+        
+    - name: Cluster env for staging/dev
+      if: "github.event.release.prerelease"
+      run: |
+        echo dev
